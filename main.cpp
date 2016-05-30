@@ -75,6 +75,30 @@ int main()
       sf::Vector2i(x, y)          // 4
     };                            //
 
+/*  std::vector <sf::Vector2i> t_shape_turned_once = //TODO
+    {                             //
+      sf::Vector2i(x - 1, y - 1), // 1                _
+      sf::Vector2i(x - 2, y),     // 2               |_|_
+      sf::Vector2i(x - 1, y),     // 3               |_|_|
+      sf::Vector2i(x, y)          // 4               |_|
+    };                            //
+
+    std::vector <sf::Vector2i> t_shape_turned_twice = //TODO
+    {                             //
+      sf::Vector2i(x - 1, y - 1), // 1              _ _ _
+      sf::Vector2i(x - 2, y),     // 2             |_|_|_|
+      sf::Vector2i(x - 1, y),     // 3               |_|
+      sf::Vector2i(x, y)          // 4
+    };                            //
+
+    std::vector <sf::Vector2i> t_shape_turned_thrice = //TODO
+    {                             //
+      sf::Vector2i(x - 1, y - 1), // 1                _
+      sf::Vector2i(x - 2, y),     // 2              _|_|
+      sf::Vector2i(x - 1, y),     // 3             |_|_|
+      sf::Vector2i(x, y)          // 4               |_|
+    };                            //
+*/
     std::vector <sf::Vector2i> s_shape =
     {                             //
       sf::Vector2i(x, y - 1),     // 1                _ _
@@ -83,12 +107,52 @@ int main()
       sf::Vector2i(x, y)          // 4
     };                            //
 
+    std::vector <sf::Vector2i> s_shape_turned =
+    {                             //
+      sf::Vector2i(x - 1, y - 2), // 1               _
+      sf::Vector2i(x - 1, y - 1), // 2              |1|_
+      sf::Vector2i(x, y - 1),     // 3              |2|3|
+      sf::Vector2i(x, y)          // 4                |4|
+    };                            //
+
+
     while(window.pollEvent(event))
     {
       switch(event.type)
       {
         case sf::Event::Closed:
           window.close();
+          break;
+        case sf::Event::KeyPressed:
+          if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+          {
+            do
+            {
+              y += 1;
+            }
+            while(grid[x - 1][y] != sf::Color::Green && grid[x][y] != sf::Color::Green && grid[x + 1][y - 1] != sf::Color::Green && y != 27);
+            std::cout << y << std::endl;
+            if(y == 27 && grid[x + 1][y - 1] == sf::Color::Green)
+            {
+              y -= 1;
+            }
+            else if(y == 28)
+            {
+              y += 1; //only if the block is going to end up on the floor
+            }
+            else if(y < 27)
+            {
+              y -= 1; //only if the block is not going to end up on the floor
+            }
+          }
+          if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+          {
+            x -= 1;
+          }
+          if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+          {
+            x += 1;
+          }
           break;
         default:
           break;
@@ -112,7 +176,7 @@ int main()
         std::cout << x << std::endl;
         std::cout << y << std::endl;
         y = -1;
-        x += 2;
+        x = 9;
       }
       else if(y == 28)
       {
@@ -125,6 +189,7 @@ int main()
         std::cout << x << std::endl;
         std::cout << y << std::endl;
         y = -1;
+        x = 9;
       }
     }
     window.clear();
