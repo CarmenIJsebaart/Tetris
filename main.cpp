@@ -208,15 +208,51 @@ void check_shape_collision(std::vector <std::vector<sf::Color>> &grid, shapes ne
 void do_right(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int &x, const int y)
 {
   if(new_shape == shapes::i_shape)
-  {}
+  {
+    if(grid[x + 1][y - 3] != sf::Color::Green && grid[x + 1][y - 2] != sf::Color::Green &&
+       grid[x + 1][y - 1] != sf::Color::Green && grid[x + 1][y] != sf::Color::Green)
+    {
+      x += 1;
+      std::cout << x << std::endl;
+      assert(x <= 16);
+    }
+  }
   if(new_shape == shapes::j_shape)
-  {}
+  {
+    if(grid[x + 2][y - 2] != sf::Color::Green && grid[x + 2][y - 1] != sf::Color::Green && grid[x + 2][y] != sf::Color::Green)
+    {
+      x += 1;
+      std::cout << x << std::endl;
+      assert(x <= 16);
+    }
+  }
   if(new_shape == shapes::l_shape)
-  {}
+  {
+    if(grid[x][y - 2] != sf::Color::Green && grid[x][y - 1] != sf::Color::Green && grid[x + 1][y] != sf::Color::Green)
+    {
+      x += 1;
+      std::cout << x << std::endl;
+      assert(x <= 16);
+    }
+  }
   if(new_shape == shapes::o_shape)
-  {}
+  {
+    if(grid[x][y] != sf::Color::Green && grid[x + 1][y] != sf::Color::Green)
+    {
+      x += 1;
+      std::cout << x << std::endl;
+      assert(x <= 16);
+    }
+  }
   if(new_shape == shapes::t_shape)
-  {}
+  {
+    if(grid[x][y - 1] != sf::Color::Green && grid[x + 1][y] != sf::Color::Green)
+    {
+      x += 1;
+      std::cout << x << std::endl;
+      assert(x <= 16);
+    }
+  }
   if(new_shape == shapes::s_shape)
   {
     if(grid[x + 2][y - 1] != sf::Color::Green && grid[x + 1][y] != sf::Color::Green)
@@ -227,7 +263,14 @@ void do_right(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int
     }
   }
   if(new_shape == shapes::z_shape)
-  {}
+  {
+    if(grid[x][y - 1] != sf::Color::Green && grid[x + 1][y] != sf::Color::Green)
+    {
+      x += 1;
+      std::cout << x << std::endl;
+      assert(x <= 16);
+    }
+  }
 }
 
 void do_left(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int &x, const int y)
