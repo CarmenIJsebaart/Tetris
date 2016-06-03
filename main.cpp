@@ -138,7 +138,7 @@ void check_shape_collision(std::vector <std::vector<sf::Color>> &grid, shapes ne
   }
   if(new_shape == shapes::o_shape)
   {
-    if(y == 28 || grid[x][y] == sf::Color::Green || grid[x][y - 1] == sf::Color::Green)
+    if(y == 28 || grid[x][y] == sf::Color::Green || grid[x - 1][y] == sf::Color::Green)
     {
       grid[x - 1][y - 2] = sf::Color::Green;
       grid[x - 1][y - 1] = sf::Color::Green;
@@ -233,15 +233,51 @@ void do_right(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int
 void do_left(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int &x, const int y)
 {
   if(new_shape == shapes::i_shape)
-  {}
+  {
+    if(grid[x - 1][y] != sf::Color::Green && grid[x - 1][y - 1] != sf::Color::Green &&
+       grid[x - 1][y - 2] != sf::Color::Green && grid[x - 1][y - 3] != sf::Color::Green)
+    {
+      x -= 1;
+      std::cout << x << std::endl;
+      assert(x >= 1);
+    }
+  }
   if(new_shape == shapes::j_shape)
-  {}
+  {
+    if(grid[x][y - 2] != sf::Color::Green && grid[x][y - 1] != sf::Color::Green && grid[x - 1][y] != sf::Color::Green)
+    {
+      x -= 1;
+      std::cout << x << std::endl;
+      assert(x >= 1);
+    }
+  }
   if(new_shape == shapes::l_shape)
-  {}
+  {
+    if(grid[x - 2][y - 2] != sf::Color::Green && grid[x - 2][y - 1] != sf::Color::Green && grid[x - 2][y] != sf::Color::Green)
+    {
+      x -= 1;
+      std::cout << x << std::endl;
+      assert(x >= 1);
+    }
+  }
   if(new_shape == shapes::o_shape)
-  {}
+  {
+    if(grid[x - 2][y - 1] != sf::Color::Green && grid[x - 2][y] != sf::Color::Green)
+    {
+      x -= 1;
+      std::cout << x << std::endl;
+      assert(x >= 1);
+    }
+  }
   if(new_shape == shapes::t_shape)
-  {}
+  {
+    if(grid[x - 3][y] != sf::Color::Green && grid[x - 2][y - 1] != sf::Color::Green)
+    {
+      x -= 1;
+      std::cout << x << std::endl;
+      assert(x >= 1);
+    }
+  }
   if(new_shape == shapes::s_shape)
   {
     if(grid[x - 2][y] != sf::Color::Green && grid[x - 1][y - 1] != sf::Color::Green)
@@ -252,7 +288,14 @@ void do_left(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int 
     }
   }
   if(new_shape == shapes::z_shape)
-  {}
+  {
+    if(grid[x - 3][y - 1] != sf::Color::Green && grid[x - 2][y - y] != sf::Color::Green)
+    {
+      x -= 1;
+      std::cout << x << std::endl;
+      assert(x >= 1);
+    }
+  }
 }
 
 void do_up(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, const int x, int &y)
@@ -403,8 +446,8 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     std::vector <sf::Vector2i> o_shape =
     {                             //
       sf::Vector2i(x - 1, y - 1), // 1              _ _
-      sf::Vector2i(x - 1, y),     // 2             |1|2|
-      sf::Vector2i(x, y - 1),     // 3             |3|4|
+      sf::Vector2i(x, y - 1),     // 2             |1|2|
+      sf::Vector2i(x - 1, y),     // 3             |3|4|
       sf::Vector2i(x, y)          // 4
     };                            //
     return o_shape;
