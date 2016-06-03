@@ -21,7 +21,6 @@ void do_up(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, const 
 void draw_grid(sf::RenderWindow &window, const std::vector<std::vector<sf::Color>> &grid, const int pixel_size);
 void draw_shape(sf::RenderWindow &window, std::vector<sf::Vector2i> &shape, const int pixel_size);
 
-
 int main()
 {
   const int window_height = 560; //28 squares high
@@ -93,30 +92,83 @@ int main()
 void check_shape_collision(std::vector <std::vector<sf::Color>> &grid, shapes new_shape, int &x, int &y)
 {
   if(new_shape == shapes::i_shape)
-  {}
-  if(new_shape == shapes::j_shape)
-  {}
-  if(new_shape == shapes::l_shape)
-  {}
-  if(new_shape == shapes::o_shape)
-  {}
-  if(new_shape == shapes::t_shape)
-  {}
-  if(new_shape == shapes::s_shape)
   {
-    if(grid[x - 1][y] == sf::Color::Green || grid[x][y] == sf::Color::Green || grid[x + 1][y - 1] == sf::Color::Green)
+    if(y == 28 || grid[x][y] == sf::Color::Green)
     {
-      grid[x][y - 1] = sf::Color::Green;
-      grid[x + 1][y - 2] = sf::Color::Green;
-      grid[x - 1][y - 1] = sf::Color::Green;
+      grid[x][y - 4] = sf::Color::Green;
+      grid[x][y - 3] = sf::Color::Green;
       grid[x][y - 2] = sf::Color::Green;
+      grid[x][y - 1] = sf::Color::Green;
 
       std::cout << x << std::endl;
       std::cout << y << std::endl;
       y = -1;
       x = 9;
     }
-    else if(y == 28)
+  }
+  if(new_shape == shapes::j_shape)
+  {
+    if(y == 28 || grid[x][y] == sf::Color::Green || grid[x + 1][y] == sf::Color::Green)
+    {
+      grid[x + 1][y - 3] = sf::Color::Green;
+      grid[x + 1][y - 2] = sf::Color::Green;
+      grid[x + 1][y - 1] = sf::Color::Green;
+      grid[x][y - 1] = sf::Color::Green;
+
+      std::cout << x << std::endl;
+      std::cout << y << std::endl;
+      y = -1;
+      x = 9;
+    }
+  }
+  if(new_shape == shapes::l_shape)
+  {
+    if(y == 28 || grid[x][y] == sf::Color::Green || grid[x - 1][y] == sf::Color::Green)
+    {
+      grid[x - 1][y - 3] = sf::Color::Green;
+      grid[x - 1][y - 2] = sf::Color::Green;
+      grid[x - 1][y - 1] = sf::Color::Green;
+      grid[x][y - 1] = sf::Color::Green;
+
+      std::cout << x << std::endl;
+      std::cout << y << std::endl;
+      y = -1;
+      x = 9;
+    }
+  }
+  if(new_shape == shapes::o_shape)
+  {
+    if(y == 28 || grid[x][y] == sf::Color::Green || grid[x][y - 1] == sf::Color::Green)
+    {
+      grid[x - 1][y - 2] = sf::Color::Green;
+      grid[x - 1][y - 1] = sf::Color::Green;
+      grid[x][y - 2] = sf::Color::Green;
+      grid[x][y - 1] = sf::Color::Green;
+
+      std::cout << x << std::endl;
+      std::cout << y << std::endl;
+      y = -1;
+      x = 9;
+    }
+  }
+  if(new_shape == shapes::t_shape)
+  {
+    if(y == 28 || grid[x][y] == sf::Color::Green || grid[x - 1][y] == sf::Color::Green || grid[x - 2][y] == sf::Color::Green)
+    {
+      grid[x - 1][y - 2] = sf::Color::Green;
+      grid[x - 2][y - 1] = sf::Color::Green;
+      grid[x - 1][y - 1] = sf::Color::Green;
+      grid[x][y - 1] = sf::Color::Green;
+
+      std::cout << x << std::endl;
+      std::cout << y << std::endl;
+      y = -1;
+      x = 9;
+    }
+  }
+  if(new_shape == shapes::s_shape)
+  {
+    if(y == 28 || grid[x - 1][y] == sf::Color::Green || grid[x][y] == sf::Color::Green || grid[x + 1][y - 1] == sf::Color::Green)
     {
       grid[x][y - 1] = sf::Color::Green;
       grid[x + 1][y - 2] = sf::Color::Green;
@@ -130,7 +182,27 @@ void check_shape_collision(std::vector <std::vector<sf::Color>> &grid, shapes ne
     }
   }
   if(new_shape == shapes::z_shape)
-  {}
+  {
+    std::vector <sf::Vector2i> z_shape =
+    {                             //
+      sf::Vector2i(x - 2, y - 1), // 1              _ _
+      sf::Vector2i(x - 1, y - 1), // 2             |1|2|_
+      sf::Vector2i(x - 1, y),     // 3               |3|4|
+      sf::Vector2i(x, y)          // 4
+    };                            //
+    if(y == 28 || grid[x - 2][y - 1] == sf::Color::Green || grid[x - 1][y] == sf::Color::Green || grid[x][y] == sf::Color::Green)
+    {
+      grid[x][y - 1] = sf::Color::Green;
+      grid[x + 1][y - 2] = sf::Color::Green;
+      grid[x - 1][y - 1] = sf::Color::Green;
+      grid[x][y - 2] = sf::Color::Green;
+
+      std::cout << x << std::endl;
+      std::cout << y << std::endl;
+      y = -1;
+      x = 9;
+    }
+  }
 }
 
 void do_right(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int &x, const int y)
