@@ -197,7 +197,6 @@ void check_shape_collision(std::vector <std::vector<sf::Color>> &grid, shapes ne
     }
   }
 }
-
 void do_right(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int &x, const int y)
 {
   if(new_shape == shapes::i_shape)
@@ -265,7 +264,6 @@ void do_right(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int
     }
   }
 }
-
 void do_left(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int &x, const int y)
 {
   if(new_shape == shapes::i_shape)
@@ -333,19 +331,133 @@ void do_left(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int 
     }
   }
 }
-
 void do_up(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, const int x, int &y)
 {
   if(new_shape == shapes::i_shape)
-  {}
+  {
+    do
+    {
+      y += 1;
+      assert(y <= 28);
+    }
+    while(grid[x][y] != sf::Color::Green && y != 27);
+    std::cout << y << std::endl;
+    if(y == 27 && grid[x][y] == sf::Color::Green)
+    {
+      y -= 1;
+      assert(y <= 28);
+    }
+    else if(y == 28)
+    {
+      y += 1; //only if the block is going to end up on the floor
+      assert(y <= 28);
+    }
+    else if(y < 27)
+    {
+      y -= 1; //only if the block is not going to end up on the floor
+      assert(y <= 28);
+    }
+  }
   if(new_shape == shapes::j_shape)
-  {}
+  {
+    do
+    {
+      y += 1;
+      assert(y <= 28);
+    }
+    while(grid[x][y] != sf::Color::Green && grid[x + 1][y] != sf::Color::Green && y != 27);
+    std::cout << y << std::endl;
+    if(y == 27 && (grid[x][y] == sf::Color::Green || grid[x + 1][y] == sf::Color::Green))
+    {
+      y -= 1;
+      assert(y <= 28);
+    }
+    else if(y == 28)
+    {
+      y += 1; //only if the block is going to end up on the floor
+      assert(y <= 28);
+    }
+    else if(y < 27)
+    {
+      y -= 1; //only if the block is not going to end up on the floor
+      assert(y <= 28);
+    }
+  }
   if(new_shape == shapes::l_shape)
-  {}
+  {
+    do
+    {
+      y += 1;
+      assert(y <= 28);
+    }
+    while(grid[x][y] != sf::Color::Green && grid[x - 1][y] != sf::Color::Green && y != 27);
+    std::cout << y << std::endl;
+    if(y == 27 && (grid[x][y] == sf::Color::Green || grid[x - 1][y] == sf::Color::Green))
+    {
+      y -= 1;
+      assert(y <= 28);
+    }
+    else if(y == 28)
+    {
+      y += 1; //only if the block is going to end up on the floor
+      assert(y <= 28);
+    }
+    else if(y < 27)
+    {
+      y -= 1; //only if the block is not going to end up on the floor
+      assert(y <= 28);
+    }
+  }
   if(new_shape == shapes::o_shape)
-  {}
+  {
+    do
+    {
+      y += 1;
+      assert(y <= 28);
+    }
+    while(grid[x - 1][y] != sf::Color::Green && grid[x][y] != sf::Color::Green && grid[x + 1][y - 1] != sf::Color::Green && y != 27);
+    std::cout << y << std::endl;
+    if(y == 27 && (grid[x - 1][y] == sf::Color::Green || grid[x][y] == sf::Color::Green))
+    {
+      y -= 1;
+      assert(y <= 28);
+    }
+    else if(y == 28)
+    {
+      y += 1; //only if the block is going to end up on the floor
+      assert(y <= 28);
+    }
+    else if(y < 27)
+    {
+      y -= 1; //only if the block is not going to end up on the floor
+      assert(y <= 28);
+    }
+  }
   if(new_shape == shapes::t_shape)
-  {}
+  {
+    do
+    {
+      y += 1;
+      assert(y <= 28);
+    }
+    while(grid[x - 2][y] != sf::Color::Green && grid[x - 1][y] != sf::Color::Green && grid[x][y] != sf::Color::Green && y != 27);
+    std::cout << y << std::endl;
+    if(y == 27 && (grid[x - 2][y] == sf::Color::Green || grid[x - 1][y] == sf::Color::Green || grid[x][y] == sf::Color::Green))
+    {
+      y -= 1;
+      assert(y <= 28);
+    }
+    else if(y == 28)
+    {
+      y += 1; //only if the block is going to end up on the floor
+      assert(y <= 28);
+    }
+    else if(y < 27)
+    {
+      y -= 1; //only if the block is not going to end up on the floor
+      assert(y <= 28);
+    }
+  }
   if(new_shape == shapes::s_shape)
   {
     do
@@ -372,9 +484,31 @@ void do_up(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, const 
     }
   }
   if(new_shape == shapes::z_shape)
-  {}
+  {
+    do
+    {
+      y += 1;
+      assert(y <= 28);
+    }
+    while(grid[x - 2][y - 1] != sf::Color::Green && grid[x - 1][y] != sf::Color::Green && grid[x][y] != sf::Color::Green && y != 27);
+    std::cout << y << std::endl;
+    if(y == 27 && grid[x - 2][y - 1] == sf::Color::Green)
+    {
+      y -= 1;
+      assert(y <= 28);
+    }
+    else if(y == 28)
+    {
+      y -= 1; //only if the block is going to end up on the floor
+      assert(y <= 28);
+    }
+    else if(y < 27)
+    {
+      y -= 1; //only if the block is not going to end up on the floor
+      assert(y <= 28);
+    }
+  }
 }
-
 void choose_random_shape(shapes &new_shape, const int y)
 {
   if(y == -1)
@@ -382,7 +516,6 @@ void choose_random_shape(shapes &new_shape, const int y)
     new_shape = static_cast<shapes>(rand() % 7);
   }
 }
-
 std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const int y)
 {
   if(new_shape == shapes::i_shape)
