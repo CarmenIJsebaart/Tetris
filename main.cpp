@@ -274,6 +274,45 @@ void check_shape_collision(std::vector <std::vector<sf::Color>> &grid, shapes ne
       x = 9;
     }
   }
+  if(new_shape == shapes::t_shape_turned_once)
+  {
+    if(y == 28 || grid[x][y] == sf::Color::Green || grid[x + 1][y - 1] == sf::Color::Green)
+    {
+      grid[x][y - 2] = sf::Color::Green;
+      grid[x][y - 3] = sf::Color::Green;
+      grid[x + 1][y - 2] = sf::Color::Green;
+      grid[x][y - 1] = sf::Color::Green;
+
+      y = -1;
+      x = 9;
+    }
+  }
+  if(new_shape == shapes::t_shape_turned_twice)
+  {
+    if(y == 28 || grid[x - 1][y - 1] == sf::Color::Green || grid[x][y] == sf::Color::Green || grid[x + 1][y - 1] == sf::Color::Green)
+    {
+      grid[x - 1][y - 2] = sf::Color::Green;
+      grid[x][y - 2] = sf::Color::Green;
+      grid[x + 1][y - 2] = sf::Color::Green;
+      grid[x][y - 1] = sf::Color::Green;
+
+      y = -1;
+      x = 9;
+    }
+  }
+  if(new_shape == shapes::t_shape_turned_thrice)
+  {
+    if(y == 28 || grid[x - 1][y - 1] == sf::Color::Green || grid[x][y] == sf::Color::Green)
+    {
+      grid[x - 1][y - 2] = sf::Color::Green;
+      grid[x][y - 3] = sf::Color::Green;
+      grid[x][y - 2] = sf::Color::Green;
+      grid[x][y - 1] = sf::Color::Green;
+
+      y = -1;
+      x = 9;
+    }
+  }
   if(new_shape == shapes::s_shape)
   {
     if(y == 28 || grid[x - 1][y] == sf::Color::Green || grid[x][y] == sf::Color::Green || grid[x + 1][y - 1] == sf::Color::Green)
@@ -287,6 +326,19 @@ void check_shape_collision(std::vector <std::vector<sf::Color>> &grid, shapes ne
       x = 9;
     }
   }
+  if(new_shape == shapes::s_shape_turned)
+  {
+    if(y == 28 || grid[x - 1][y - 1] == sf::Color::Green || grid[x][y] == sf::Color::Green)
+    {
+      grid[x - 1][y - 3] = sf::Color::Green;
+      grid[x - 1][y - 2] = sf::Color::Green;
+      grid[x][y - 2] = sf::Color::Green;
+      grid[x][y - 1] = sf::Color::Green;
+
+      y = -1;
+      x = 9;
+    }
+  }
   if(new_shape == shapes::z_shape)
   {
     if(y == 28 || grid[x - 2][y - 1] == sf::Color::Green || grid[x - 1][y] == sf::Color::Green || grid[x][y] == sf::Color::Green)
@@ -294,6 +346,19 @@ void check_shape_collision(std::vector <std::vector<sf::Color>> &grid, shapes ne
       grid[x - 2][y - 2] = sf::Color::Green;
       grid[x - 1][y - 2] = sf::Color::Green;
       grid[x - 1][y - 1] = sf::Color::Green;
+      grid[x][y - 1] = sf::Color::Green;
+
+      y = -1;
+      x = 9;
+    }
+  }
+  if(new_shape == shapes::z_shape_turned)
+  {
+    if(y == 28 || grid[x + 1][y - 1] == sf::Color::Green || grid[x][y] == sf::Color::Green)
+    {
+      grid[x + 1][y - 3] = sf::Color::Green;
+      grid[x + 1][y - 2] = sf::Color::Green;
+      grid[x][y - 2] = sf::Color::Green;
       grid[x][y - 1] = sf::Color::Green;
 
       y = -1;
