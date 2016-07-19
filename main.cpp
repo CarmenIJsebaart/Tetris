@@ -45,21 +45,21 @@ int main()
   shapes new_shape;
 
   //background music
-  /*sf::Music background_music;
+  sf::Music background_music;
   if(!background_music.openFromFile("Background.wav"))
   {
     std::cout << "Error loading sound (Background)" << std::endl;
   }
   background_music.setLoop(true);
-  background_music.play();*/
+  background_music.play();
 
   //shape falls to ground sound
-  /*sf::SoundBuffer shape_soundbuffer;
+  sf::SoundBuffer shape_soundbuffer;
   if(!shape_soundbuffer.loadFromFile("ShapeFalls.wav")) {std::cout << "Error loading sound (ShapeFalls)" << std::endl; }
 
   sf::Sound shape_sound;
   shape_sound.setBuffer(shape_soundbuffer);
-  shape_sound.setVolume(50);*/
+  shape_sound.setVolume(50);
 
   while(window.isOpen())
   {
@@ -76,14 +76,14 @@ int main()
           window.close();
           break;
         case sf::Event::KeyPressed:
-          if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) //TODO
+          if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
           {
             do_down(new_shape);
           }
           if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
           {
             do_up(grid, new_shape, x, y);
-            //shape_sound.play();
+            shape_sound.play();
           }
           if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
           {
@@ -372,40 +372,58 @@ void do_down(shapes &new_shape)
   {
     case shapes::i_shape:
       new_shape = shapes::i_shape_turned;
+      break;
     case shapes::i_shape_turned:
       new_shape = shapes::i_shape;
+      break;
     case shapes::j_shape:
       new_shape = shapes::j_shape_turned_once;
+      break;
     case shapes::j_shape_turned_once:
       new_shape = shapes::j_shape_turned_twice;
+      break;
     case shapes::j_shape_turned_twice:
       new_shape = shapes::j_shape_turned_thrice;
+      break;
     case shapes::j_shape_turned_thrice:
       new_shape = shapes::j_shape;
+      break;
     case shapes::l_shape:
       new_shape = shapes::l_shape_turned_once;
+      break;
     case shapes::l_shape_turned_once:
       new_shape = shapes::l_shape_turned_twice;
+      break;
     case shapes::l_shape_turned_twice:
       new_shape = shapes::l_shape_turned_thrice;
+      break;
     case shapes::l_shape_turned_thrice:
       new_shape = shapes::l_shape;
+      break;
     case shapes::t_shape:
       new_shape = shapes::t_shape_turned_once;
+      break;
     case shapes::t_shape_turned_once:
       new_shape = shapes::t_shape_turned_twice;
+      break;
     case shapes::t_shape_turned_twice:
       new_shape = shapes::t_shape_turned_thrice;
+      break;
     case shapes::t_shape_turned_thrice:
       new_shape = shapes::t_shape;
+      break;
     case shapes::s_shape:
       new_shape = shapes::s_shape_turned;
+      break;
     case shapes::s_shape_turned:
       new_shape = shapes::s_shape;
+      break;
     case shapes::z_shape:
       new_shape = shapes::z_shape_turned;
+      break;
     case shapes::z_shape_turned:
       new_shape = shapes::z_shape;
+      break;
     default:
       break;
   }
@@ -429,6 +447,7 @@ void do_right(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int
     if(x <= 13)
     {
       x += 1;
+      assert(x <= 14);
     }
   }
   if(new_shape == shapes::j_shape)
@@ -442,6 +461,39 @@ void do_right(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int
       }
     }
   }
+  if(new_shape == shapes::j_shape_turned_once)
+  {
+    if(x <= 16)
+    {
+      if(grid[x - 1][y - 1] != sf::Color::Green && grid[x + 1][y] != sf::Color::Green)
+      {
+        x += 1;
+        assert(x <= 17);
+      }
+    }
+  }
+  if(new_shape == shapes::j_shape_turned_twice)
+  {
+    if(x <= 15)
+    {
+      if(grid[x + 2][y - 2] != sf::Color::Green && grid[x + 1][y - 1] != sf::Color::Green && grid[x + 1][y] != sf::Color::Green)
+      {
+        x += 1;
+        assert(x <= 16);
+      }
+    }
+  }
+  if(new_shape == shapes::j_shape_turned_thrice)
+  {
+    if(x <= 16)
+    {
+      if(grid[x + 1][y - 1] != sf::Color::Green && grid[x + 1][y] != sf::Color::Green)
+      {
+        x += 1;
+        assert(x <= 17);
+      }
+    }
+  }
   if(new_shape == shapes::l_shape)
   {
     if(x <= 16)
@@ -450,6 +502,39 @@ void do_right(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int
       {
         x += 1;
         assert(x <= 17);
+      }
+    }
+  }
+  if(new_shape == shapes::l_shape_turned_once)
+  {
+    if(x <= 14)
+    {
+      if(grid[x][y] != sf::Color::Green && grid[x + 2][y - 1] != sf::Color::Green)
+      {
+        x += 1;
+        assert(x <= 15);
+      }
+    }
+  }
+  if(new_shape == shapes::l_shape_turned_twice)
+  {
+    if(x <= 16)
+    {
+      if(grid[x][y] != sf::Color::Green && grid[x][y - 1] != sf::Color::Green && grid[x][y - 2] != sf::Color::Green)
+      {
+        x += 1;
+        assert(x <= 17);
+      }
+    }
+  }
+  if(new_shape == shapes::l_shape_turned_thrice)
+  {
+    if(x <= 14)
+    {
+      if(grid[x + 2][y] != sf::Color::Green && grid[x + 2][y - 1] != sf::Color::Green)
+      {
+        x += 1;
+        assert(x <= 15);
       }
     }
   }
@@ -475,6 +560,39 @@ void do_right(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int
       }
     }
   }
+  if(new_shape == shapes::t_shape_turned_once)
+  {
+    if(x <= 15)
+    {
+      if(grid[x][y] != sf::Color::Green && grid[x + 1][y - 1] != sf::Color::Green && grid[x][y - 2] != sf::Color::Green)
+      {
+        x += 1;
+        assert(x <= 17);
+      }
+    }
+  }
+  if(new_shape == shapes::t_shape_turned_twice)
+  {
+    if(x <= 15)
+    {
+      if(grid[x][y] != sf::Color::Green && grid[x + 1][y - 1] != sf::Color::Green)
+      {
+        x += 1;
+        assert(x <= 16);
+      }
+    }
+  }
+  if(new_shape == shapes::t_shape_turned_thrice)
+  {
+    if(x <= 16)
+    {
+      if(grid[x][y] != sf::Color::Green && grid[x][y - 1] != sf::Color::Green && grid[x][y - 1] != sf::Color::Green)
+      {
+        x += 1;
+        assert(x <= 17);
+      }
+    }
+  }
   if(new_shape == shapes::s_shape)
   {
     if(x <= 15)
@@ -486,6 +604,17 @@ void do_right(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int
       }
     }
   }
+  if(new_shape == shapes::s_shape_turned)
+  {
+    if(x <= 16)
+    {
+      if(grid[x - 1][y - 2] != sf::Color::Green && grid[x][y - 1] != sf::Color::Green && grid[x][y] != sf::Color::Green)
+      {
+        x += 1;
+        assert(x <= 17);
+      }
+    }
+  }
   if(new_shape == shapes::z_shape)
   {
     if(x <= 16)
@@ -494,6 +623,17 @@ void do_right(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int
       {
         x += 1;
         assert(x <= 17);
+      }
+    }
+  }
+  if(new_shape == shapes::z_shape_turned)
+  {
+    if(x <= 15)
+    {
+      if(grid[x + 1][y - 2] != sf::Color::Green && grid[x + 1][y - 1] != sf::Color::Green && grid[x][y] != sf::Color::Green)
+      {
+        x += 1;
+        assert(x <= 16);
       }
     }
   }
@@ -530,6 +670,39 @@ void do_left(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int 
       }
     }
   }
+  if(new_shape == shapes::j_shape_turned_once)
+  {
+    if(x >= 3)
+    {
+      if(grid[x - 2][y - 1] != sf::Color::Green && grid[x - 2][y] != sf::Color::Green)
+      {
+        x -= 1;
+        assert(x >= 2);
+      }
+    }
+  }
+  if(new_shape == shapes::j_shape_turned_twice)
+  {
+    if(x >= 1)
+    {
+      if(grid[x][y - 2] != sf::Color::Green && grid[x][y - 1] != sf::Color::Green && grid[x][y] != sf::Color::Green)
+      {
+        x -= 1;
+        assert(x >= 0);
+      }
+    }
+  }
+  if(new_shape == shapes::j_shape_turned_thrice)
+  {
+    if(x >= 3)
+    {
+      if(grid[x - 2][y - 1] != sf::Color::Green && grid[x][y] != sf::Color::Green)
+      {
+        x -= 1;
+        assert(x >= 2);
+      }
+    }
+  }
   if(new_shape == shapes::l_shape)
   {
     if(x >= 2)
@@ -538,6 +711,39 @@ void do_left(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int 
       {
         x -= 1;
         assert(x >= 1);
+      }
+    }
+  }
+  if(new_shape == shapes::l_shape_turned_once)
+  {
+    if(x >= 1)
+    {
+      if(grid[x][y - 1] != sf::Color::Green && grid[x][y] != sf::Color::Green)
+      {
+        x -= 1;
+        assert(x >= 0);
+      }
+    }
+  }
+  if(new_shape == shapes::l_shape_turned_twice)
+  {
+    if(x >= 2)
+    {
+      if(grid[x - 1][y - 2] != sf::Color::Green && grid[x][y - 1] != sf::Color::Green && grid[x][y] != sf::Color::Green)
+      {
+        x -= 1;
+        assert(x >= 0);
+      }
+    }
+  }
+  if(new_shape == shapes::l_shape_turned_thrice)
+  {
+    if(x >= 1)
+    {
+      if(grid[x + 2][y - 1] != sf::Color::Green && grid[x][y] != sf::Color::Green)
+      {
+        x -= 1;
+        assert(x >= 0);
       }
     }
   }
@@ -559,8 +765,40 @@ void do_left(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int 
       if(grid[x - 3][y] != sf::Color::Green && grid[x - 2][y - 1] != sf::Color::Green)
       {
         x -= 1;
-        std::cout << x << std::endl;
         assert(x >= 2);
+      }
+    }
+  }
+  if(new_shape == shapes::t_shape_turned_once)
+  {
+    if(x >= 1)
+    {
+      if(grid[x][y - 2] != sf::Color::Green && grid[x][y - 1] != sf::Color::Green && grid[x][y] != sf::Color::Green)
+      {
+        x -= 1;
+        assert(x >= 0);
+      }
+    }
+  }
+  if(new_shape == shapes::t_shape_turned_twice)
+  {
+    if(x >= 2)
+    {
+      if(grid[x - 1][y - 1] != sf::Color::Green && grid[x][y] != sf::Color::Green)
+      {
+        x -= 1;
+        assert(x >= 1);
+      }
+    }
+  }
+  if(new_shape == shapes::t_shape_turned_thrice)
+  {
+    if(x >= 2)
+    {
+      if(grid[x][y - 2] != sf::Color::Green && grid[x - 1][y - 1] != sf::Color::Green && grid[x][y] != sf::Color::Green)
+      {
+        x -= 1;
+        assert(x >= 1);
       }
     }
   }
@@ -575,6 +813,17 @@ void do_left(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int 
       }
     }
   }
+  if(new_shape == shapes::s_shape_turned)
+  {
+    if(x >= 2)
+    {
+      if(grid[x - 1][y - 2] != sf::Color::Green && grid[x - 1][y - 1] != sf::Color::Green && grid[x][y] != sf::Color::Green)
+      {
+        x -= 1;
+        assert(x >= 1);
+      }
+    }
+  }
   if(new_shape == shapes::z_shape)
   {
     if(x >= 3)
@@ -583,6 +832,17 @@ void do_left(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, int 
       {
         x -= 1;
         assert(x >= 2);
+      }
+    }
+  }
+  if(new_shape == shapes::z_shape_turned)
+  {
+    if(x >= 1)
+    {
+      if(grid[x + 1][y - 2] != sf::Color::Green && grid[x][y - 1] != sf::Color::Green && grid[x][y] != sf::Color::Green)
+      {
+        x -= 1;
+        assert(x >= 0);
       }
     }
   }
@@ -639,16 +899,72 @@ void do_up(std::vector <std::vector<sf::Color>> &grid, shapes &new_shape, const 
       assert(y <= 28);
     }
     while(grid[x][y] != sf::Color::Green && grid[x + 1][y] != sf::Color::Green && y != 27);
-    std::cout << y << std::endl;
     if(y == 27 && (grid[x][y] == sf::Color::Green || grid[x + 1][y] == sf::Color::Green))
     {
       y -= 1;
-      assert(y <= 28);
+      assert(y <= 26);
     }
     else if(y < 27)
     {
       y -= 1; //only if the block is not going to end up on the floor
+      assert(y <= 26);
+    }
+  }
+  if(new_shape == shapes::j_shape_turned_once)
+  {
+    do
+    {
+      y += 1;
       assert(y <= 28);
+    }
+    while(grid[x - 2][y] != sf::Color::Green && grid[x - 1][y] != sf::Color::Green && grid[x][y] != sf::Color::Green && y != 27);
+    if(y == 27 && (grid[x - 2][y] == sf::Color::Green || grid[x - 1][y] == sf::Color::Green || grid[x][y] == sf::Color::Green))
+    {
+      y -= 1;
+      assert(y <= 26);
+    }
+    else if(y < 27)
+    {
+      y -= 1;
+      assert(y <= 25);
+    }
+  }
+  if(new_shape == shapes::j_shape_turned_twice)
+  {
+    do
+    {
+      y += 1;
+      assert(y <= 28);
+    }
+    while(grid[x][y] != sf::Color::Green && grid[x + 1][y - 2] != sf::Color::Green);
+    if(y == 27 && (grid[x][y] == sf::Color::Green || grid[x + 1][y - 2] == sf::Color::Green))
+    {
+      y -= 1;
+      assert(y <= 26);
+    }
+    else if(y < 27)
+    {
+      y -= 1;
+      assert(y <= 25);
+    }
+  }
+  if(new_shape == shapes::j_shape_turned_thrice)
+  {
+    do
+    {
+      y += 1;
+      assert(y <= 28);
+    }
+    while(grid[x - 2][y - 1] != sf::Color::Green && grid[x - 1][y - 1] != sf::Color::Green && grid[x][y - 1] != sf::Color::Green);
+    if(y == 27 && (grid[x - 2][y - 1] == sf::Color::Green || grid[x - 1][y - 1] == sf::Color::Green || grid[x][y - 1] == sf::Color::Green))
+    {
+      y -= 1;
+      assert(y <= 26);
+    }
+    else if(y < 27)
+    {
+      y -= 1;
+      assert(y <= 25);
     }
   }
   if(new_shape == shapes::l_shape)
@@ -772,7 +1088,6 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     };                             //
     return i_shape;
   }
-
   if(new_shape == shapes::i_shape_turned)
   {
     std::vector <sf::Vector2i> i_shape_turned =
@@ -784,7 +1099,6 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     };                             //
     return i_shape_turned;
   }
-
   if(new_shape == shapes::j_shape)
   {
     std::vector <sf::Vector2i> j_shape =
@@ -796,7 +1110,6 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     };                             //
     return j_shape;
   }
-
   if(new_shape == shapes::j_shape_turned_once)
   {
     std::vector <sf::Vector2i> j_shape_turned_once =
@@ -808,7 +1121,6 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     };                             //
     return j_shape_turned_once;
   }
-
   if(new_shape == shapes::j_shape_turned_twice)
   {
     std::vector <sf::Vector2i> j_shape_turned_twice =
@@ -820,7 +1132,6 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     };                             //
     return j_shape_turned_twice;
   }
-
   if(new_shape == shapes::j_shape_turned_thrice)
   {
     std::vector <sf::Vector2i> j_shape_turned_thrice =
@@ -832,7 +1143,6 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     };                             //
     return j_shape_turned_thrice;
   }
-
   if(new_shape == shapes::l_shape)
   {
     std::vector <sf::Vector2i> l_shape =
@@ -844,7 +1154,6 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     };                            //
     return l_shape;
   }
-
   if(new_shape == shapes::l_shape_turned_once)
   {
     std::vector <sf::Vector2i> l_shape_turned_once =
@@ -856,7 +1165,6 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     };                            //
     return l_shape_turned_once;
   }
-
   if(new_shape == shapes::l_shape_turned_twice)
   {
     std::vector <sf::Vector2i> l_shape_turned_twice =
@@ -868,7 +1176,6 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     };                            //
     return l_shape_turned_twice;
   }
-
   if(new_shape == shapes::l_shape_turned_thrice)
   {
     std::vector <sf::Vector2i> l_shape_turned_thrice =
@@ -880,7 +1187,6 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     };                            //
     return l_shape_turned_thrice;
   }
-
   if(new_shape == shapes::o_shape)
   {
     std::vector <sf::Vector2i> o_shape =
@@ -892,7 +1198,6 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     };                            //
     return o_shape;
   }
-
   if(new_shape == shapes::t_shape)
   {
     std::vector <sf::Vector2i> t_shape =
@@ -904,31 +1209,39 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     };                            //
     return t_shape;
   }
-
-  std::vector <sf::Vector2i> t_shape_turned_once =
-  {                             //
-    sf::Vector2i(x, y - 2),     // 1                _
-    sf::Vector2i(x, y - 1),     // 2               |1|_
-    sf::Vector2i(x + 1, y - 1), // 3               |2|3|
-    sf::Vector2i(x, y)          // 4               |4|
-  };                            //
-
-  std::vector <sf::Vector2i> t_shape_turned_twice =
-  {                             //
-    sf::Vector2i(x - 1, y - 1), // 1              _ _ _
-    sf::Vector2i(x, y - 1),     // 2             |1|2|3|
-    sf::Vector2i(x + 1, y - 1), // 3               |4|
-    sf::Vector2i(x, y)          // 4
-  };                            //
-
-  std::vector <sf::Vector2i> t_shape_turned_thrice =
-  {                             //
-    sf::Vector2i(x, y - 2),     // 1                _
-    sf::Vector2i(x - 1, y - 1), // 2              _|1|
-    sf::Vector2i(x, y - 1),     // 3             |2|3|
-    sf::Vector2i(x, y)          // 4               |4|
-  };                            //
-
+  if(new_shape == shapes::t_shape_turned_once)
+  {
+    std::vector <sf::Vector2i> t_shape_turned_once =
+    {                             //
+      sf::Vector2i(x, y - 2),     // 1                _
+      sf::Vector2i(x, y - 1),     // 2               |1|_
+      sf::Vector2i(x + 1, y - 1), // 3               |2|3|
+      sf::Vector2i(x, y)          // 4               |4|
+    };                            //
+    return t_shape_turned_once;
+  }
+  if(new_shape == shapes::t_shape_turned_twice)
+  {
+    std::vector <sf::Vector2i> t_shape_turned_twice =
+    {                             //
+      sf::Vector2i(x - 1, y - 1), // 1              _ _ _
+      sf::Vector2i(x, y - 1),     // 2             |1|2|3|
+      sf::Vector2i(x + 1, y - 1), // 3               |4|
+      sf::Vector2i(x, y)          // 4
+    };                            //
+    return t_shape_turned_twice;
+  }
+  if(new_shape == shapes::t_shape_turned_thrice)
+  {
+    std::vector <sf::Vector2i> t_shape_turned_thrice =
+    {                             //
+      sf::Vector2i(x, y - 2),     // 1                _
+      sf::Vector2i(x - 1, y - 1), // 2              _|1|
+      sf::Vector2i(x, y - 1),     // 3             |2|3|
+      sf::Vector2i(x, y)          // 4               |4|
+    };                            //
+    return t_shape_turned_thrice;
+  }
   if(new_shape == shapes::s_shape)
   {
     std::vector <sf::Vector2i> s_shape =
@@ -940,15 +1253,17 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     };                            //
     return s_shape;
   }
-
-  std::vector <sf::Vector2i> s_shape_turned =
-  {                             //
-    sf::Vector2i(x - 1, y - 2), // 1               _
-    sf::Vector2i(x - 1, y - 1), // 2              |1|_
-    sf::Vector2i(x, y - 1),     // 3              |2|3|
-    sf::Vector2i(x, y)          // 4                |4|
-  };                            //
-
+  if(new_shape == shapes::s_shape_turned)
+  {
+    std::vector <sf::Vector2i> s_shape_turned =
+    {                             //
+      sf::Vector2i(x - 1, y - 2), // 1               _
+      sf::Vector2i(x - 1, y - 1), // 2              |1|_
+      sf::Vector2i(x, y - 1),     // 3              |2|3|
+      sf::Vector2i(x, y)          // 4                |4|
+    };                            //
+    return s_shape_turned;
+  }
   if(new_shape == shapes::z_shape)
   {
     std::vector <sf::Vector2i> z_shape =
@@ -960,14 +1275,17 @@ std::vector <sf::Vector2i> choose_new_shape(shapes new_shape, const int x, const
     };                            //
     return z_shape;
   }
-
+  if(new_shape == shapes::z_shape_turned)
+  {
     std::vector <sf::Vector2i> z_shape_turned =
-  {                             //
-    sf::Vector2i(x + 1, y - 2), // 1                 _
-    sf::Vector2i(x + 1, y - 1), // 2               _|1|
-    sf::Vector2i(x, y - 1),     // 3              |3|2|
-    sf::Vector2i(x, y)          // 4              |4|
-  };                            //
+    {                             //
+      sf::Vector2i(x + 1, y - 2), // 1                 _
+      sf::Vector2i(x + 1, y - 1), // 2               _|1|
+      sf::Vector2i(x, y - 1),     // 3              |3|2|
+      sf::Vector2i(x, y)          // 4              |4|
+    };                            //
+    return z_shape_turned;
+  }
 }
 void draw_shape(sf::RenderWindow &window, std::vector<sf::Vector2i> &shape, const int pixel_size)
 {
@@ -1003,4 +1321,3 @@ void draw_grid(sf::RenderWindow &window, const std::vector<std::vector<sf::Color
     }
   }
 }
-
